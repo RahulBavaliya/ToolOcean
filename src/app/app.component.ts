@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { filter, map, mergeMap } from 'rxjs/operators';
+
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SeoService } from './core/services/seo.service';
+import { CanonicalService } from './core/services/canonical.service';
 
 @Component({
   selector: 'app-root',
@@ -27,16 +30,46 @@ import { SeoService } from './core/services/seo.service';
   `,
 })
 export class AppComponent implements OnInit {
-  constructor(private seoService: SeoService) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private seoService: SeoService,
+    private canonicalService: CanonicalService
+  ) {}
 
-  ngOnInit() {
-    // Set default SEO tags
-    this.seoService.updateSeoTags({
-      title: 'Tool Ocean - Free Online Tools for Developers & Everyone',
-      description:
-        'Discover 15+ free online tools including JSON validator, text converters, calculators, QR generators, and more. Fast, secure, and user-friendly tools for developers and professionals.',
-      keywords:
-        'online tools, JSON validator, text converter, QR code generator, calculator tools, developer tools, free tools',
-    });
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        map(() => {
+          let route = this.activatedRoute.firstChild;
+          while (route?.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        filter((route) => route?.outlet === 'primary'),
+        mergeMap((route) => route?.data ?? [])
+      )
+      .subscribe((data: any) => {
+        // Update SEO tags
+        this.seoService.updateSeoTags({
+          title:
+            data.title ||
+            'Tool Ocean - Free Online Tools for Developers & Everyone',
+          description:
+            data.description ||
+            'Discover 15+ free online tools including JSON validator, text converters, calculators, QR generators, and more. Fast, secure, and user-friendly tools for developers and professionals.',
+          keywords:
+            data.keywords ||
+            'online tools, JSON validator, text converter, QR code generator, calculator tools, developer tools, free tools',
+        });
+
+        // Update canonical URL
+        const canonicalUrl =
+          data.canonical ||
+          `https://tool-ocean.vercel.app${this.router.url}`;
+        this.canonicalService.setCanonicalURL(canonicalUrl);
+      });
   }
 }
