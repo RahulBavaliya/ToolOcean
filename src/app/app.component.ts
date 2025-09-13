@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { filter, map, mergeMap } from 'rxjs/operators';
@@ -8,6 +13,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SeoService } from './core/services/seo.service';
 import { CanonicalService } from './core/services/canonical.service';
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +26,7 @@ import { CanonicalService } from './core/services/canonical.service';
     FooterComponent,
   ],
   template: `
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col bg-primary text-primary">
       <app-header></app-header>
       <main class="flex-grow">
         <router-outlet></router-outlet>
@@ -34,13 +40,19 @@ export class AppComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private seoService: SeoService,
-    private canonicalService: CanonicalService
+    private canonicalService: CanonicalService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
+    // Initialize theme service
+    this.themeService.applyThemeClasses();
+    
     this.router.events
       .pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        ),
         map(() => {
           let route = this.activatedRoute.firstChild;
           while (route?.firstChild) {
@@ -67,8 +79,7 @@ export class AppComponent implements OnInit {
 
         // Update canonical URL
         const canonicalUrl =
-          data.canonical ||
-          `https://tool-ocean.vercel.app${this.router.url}`;
+          data.canonical || `https://tool-ocean.vercel.app${this.router.url}`;
         this.canonicalService.setCanonicalURL(canonicalUrl);
       });
   }

@@ -35,9 +35,9 @@ interface Tool {
       <section class="py-16 bg-gradient-to-b from-blue-50 to-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Why Choose Tool Ocean?
-            </h2>
+            </h1>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
               Built with modern web technologies for speed, security, and accessibility
             </p>
@@ -78,59 +78,65 @@ interface Tool {
       </section>
 
       <!-- Tools Grid -->
-      <section id="tools" class="mat-typography" style="padding: 80px 0; background: #f9fafb;">
-  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
-    
-    <!-- Section Title -->
-    <div style="text-align: center; margin-bottom: 64px;">
-      <h2 class="mat-display-1" style="font-weight: 600; margin-bottom: 16px;">
-        Explore Our Tools
-      </h2>
-      <p class="mat-subheading-1" style="color: #6b7280; max-width: 640px; margin: 0 auto;">
-        Carefully crafted tools for developers, writers, and digital professionals
-      </p>
-    </div>
-
-    <!-- Tool Cards -->
-    <div class="tools-grid">
-      <mat-card
-        *ngFor="let tool of tools"
-        class="tool-card"
-        [routerLink]="tool.route"
-        [attr.aria-label]="'Navigate to ' + tool.name"
-      >
-        <mat-card-header>
-          <div mat-card-avatar class="tool-icon" [ngStyle]="{'background': getToolColor(tool.category)}">
-            <mat-icon style="color: white;">{{ tool.icon }}</mat-icon>
+      <section id="tools" class="mat-typography tools-section">
+        <div class="container">
+          <!-- Section Title -->
+          <div class="tools-header">
+            <h1 class="mat-display-1">Explore Our Tools</h1>
+            <p class="mat-subheading-1">
+              Carefully crafted tools for developers, writers, and digital professionals
+            </p>
           </div>
-          <mat-card-title>{{ tool.name }}</mat-card-title>
-          <mat-card-subtitle>{{ tool.category }}</mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-card-content>
-          <p>{{ tool.description }}</p>
-        </mat-card-content>
-
-        <mat-card-actions align="end">
-  <button mat-raised-button color="primary" class="try-now-btn" [ngStyle]="{'background': getToolColor(tool.category)}">
-    <span>Try now</span>
-    <mat-icon class="arrow-icon">arrow_forward</mat-icon>
-  </button>
-</mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-</section>
-
+      
+          <!-- Tool Cards -->
+          <div class="tools-grid">
+            <mat-card
+              *ngFor="let tool of tools"
+              class="tool-card"
+              [routerLink]="tool.route"
+              [attr.aria-label]="'Navigate to ' + tool.name"
+            >
+              <mat-card-header>
+                <div
+                  mat-card-avatar
+                  class="tool-icon"
+                  [ngStyle]="{ background: getToolColor(tool.category) }"
+                >
+                  <mat-icon style="color: white">{{ tool.icon }}</mat-icon>
+                </div>
+                <mat-card-title>{{ tool.name }}</mat-card-title>
+                <mat-card-subtitle>{{ tool.category }}</mat-card-subtitle>
+              </mat-card-header>
+      
+              <mat-card-content>
+                <p>{{ tool.description }}</p>
+              </mat-card-content>
+      
+              <mat-card-actions align="end">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="try-now-btn"
+                  [ngStyle]="{ background: getToolColor(tool.category) }"
+                >
+                  <span>Try now</span>
+                  <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </section>
+      
 
 
 
       <!-- CTA Section -->
       <section class="py-16 bg-gradient-to-r from-ocean-600 to-ocean-700 text-ocean-600">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          <h1 class="text-3xl md:text-4xl font-bold mb-6">
             Ready to Boost Your Productivity?
-          </h2>
+          </h1>
           <p class="text-xl text-ocean-100 mb-8 max-w-2xl mx-auto">
             Join thousands of users who trust Tool Ocean for their daily tasks
           </p>
@@ -155,38 +161,116 @@ interface Tool {
       </section>
     </div>
   `,
-  styles: `
-    .tools-grid {
+  styles:  `
+  /* ===========================
+   Theme Variables
+   =========================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-section: #f9fafb;
+  --bg-card: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-muted: #6b7280;
+  --shadow-card: rgba(0, 0, 0, 0.15);
+}
+[data-theme='dark'] {
+  --bg-page: #0f172a;
+  --bg-section: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --shadow-card: rgba(0, 0, 0, 0.4);
+}
+
+/* ===========================
+   Layout
+   =========================== */
+.min-h-screen {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+section {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ===========================
+   Tools Section
+   =========================== */
+.tools-section {
+  padding: 80px 0;
+  background: var(--bg-section);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.tools-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.tools-header h1 {
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+.tools-header p {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--text-muted);
+}
+
+/* ===========================
+   Tools Grid Container Fix
+   =========================== */
+.tools-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
+  padding: 0 16px; /* add horizontal padding to restore space */
+  box-sizing: border-box; /* ensure padding doesn't break layout */
 }
 
 @media (min-width: 768px) {
   .tools-grid {
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 24px; /* increase padding on medium screens */
   }
 }
 
 @media (min-width: 1024px) {
   .tools-grid {
     grid-template-columns: repeat(3, 1fr);
+    padding: 0 32px; /* increase padding on large screens */
   }
 }
 
+/* ===========================
+   Tool Card
+   =========================== */
 .tool-card {
   border-radius: 16px;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
   cursor: pointer;
   padding-bottom: 8px;
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0px 6px 20px var(--shadow-card);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: box-shadow 0.3s ease, transform 0.3s ease,
+    background 0.3s ease, color 0.3s ease;
 }
-
 .tool-card:hover {
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0px 6px 20px var(--shadow-card);
   transform: translateY(-4px);
 }
+.tool-card mat-card-title,
+.tool-card mat-card-subtitle,
+.tool-card p {
+  color: var(--text-secondary);
+}
 
+/* ===========================
+   Tool Icon
+   =========================== */
 .tool-icon {
   display: flex;
   align-items: center;
@@ -195,42 +279,40 @@ interface Tool {
   width: 48px;
   height: 48px;
 }
+
+/* ===========================
+   Buttons
+   =========================== */
 .try-now-btn {
   display: flex;
   align-items: center;
   gap: 6px;
   font-weight: 600;
-  border-radius: 9999px; /* pill shape */
+  border-radius: 9999px;
   padding: 6px 18px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-
 .try-now-btn .arrow-icon {
   font-size: 18px;
   transition: transform 0.3s ease;
 }
-
 .try-now-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
-
 .try-now-btn:hover .arrow-icon {
-  transform: translateX(4px); /* animated arrow shift */
+  transform: translateX(4px);
 }
-
 
 .launch-btn {
   border-radius: 16px;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
   cursor: pointer;
   margin-bottom: 10px;
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0px 6px 20px var(--shadow-card);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-
 .launch-btn:hover {
-  margin-bottom: 10px;
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
   transform: translateY(-4px);
 }
 .launch-btn .launch-icon {
@@ -240,39 +322,11 @@ interface Tool {
   -webkit-text-fill-color: transparent;
   transition: transform 0.3s ease;
 }
-.launch-btn:hover:hover .launch-icon {
+.launch-btn:hover .launch-icon {
   transform: translateX(4px);
 }
 
-.launch-btn-gradient-text {
-  background: none;
-  border: 2px solid transparent;
-  background-image: linear-gradient(to right, #14b8a6, #60a5fa);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-transform: none;
-  transition: transform 0.2s ease;
-}
-
-.launch-btn-gradient-text .launch-icon {
-  font-size: 18px;
-  background: linear-gradient(to right, #14b8a6, #60a5fa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: transform 0.3s ease;
-}
-
-.launch-btn-gradient-text:hover {
-  transform: translateY(-2px);
-}
-
-.launch-btn-gradient-text:hover .launch-icon {
-  transform: translateX(4px);
-}
-`,
+  `,
 })
 export class HomeComponent implements OnInit {
   tools: Tool[] = [

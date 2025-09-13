@@ -19,6 +19,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app/app.component';
@@ -47,7 +48,8 @@ bootstrapApplication(AppComponent, {
       MatGridListModule,
       MatListModule,
       MatDividerModule,
-      MatChipsModule
+      MatChipsModule,
+      MatTooltipModule
     )
   ]
 });

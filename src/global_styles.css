@@ -1,12 +1,12 @@
 /* ===========================
-   styles.css (fixed & improved)
+   styles.css (light + dark mode)
    =========================== */
 
 /* keep your Angular Material theme import first */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* ---- Root colors / vars ---- */
 :root {
   --ocean-50: #e3f2fd;
@@ -22,6 +22,45 @@
   --gray-400: #9ca3af;
   --gray-400-alt: #94a3b8;
   --blue-100: #e3f2fd;
+
+  --bg-primary: #fafafa;
+  --bg-secondary: #fff;
+  --bg-card: #fff;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --border-color: #e5e7eb;
+
+  /* footer vars */
+  --footer-bg: #0f172a;   /* dark navy for light mode */
+}
+
+/* ---------------------------
+   Dark mode overrides
+   --------------------------- */
+[data-theme="dark"] {
+  --ocean-50: #1e293b;
+  --ocean-100: #334155;
+  --ocean-400: #38bdf8;
+  --ocean-500: #0ea5e9;
+  --ocean-600: #0284c7;
+  --ocean-700: #0369a1;
+
+  --gray-900: #f8fafc;
+  --gray-800: #cbd5e1;
+  --gray-700: #94a3b8;
+  --gray-400: #64748b;
+  --gray-400-alt: #475569;
+  --blue-100: #1e293b;
+
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --border-color: #334155;
+
+  /* footer darker mode */
+  --footer-bg: #1e293b; /* slightly lighter dark navy */
 }
 
 /* ---------------------------
@@ -41,11 +80,12 @@ body {
 body {
   font-family: 'Inter', Roboto, 'Helvetica Neue', sans-serif;
   line-height: 1.6;
-  background: #fafafa;
-  color: #111827;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ===========================
@@ -99,7 +139,7 @@ header {
     var(--ocean-700) 100%
   ) !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  width: 100%; /* ensure full width */
+  width: 100%;
 }
 
 header nav {
@@ -126,7 +166,7 @@ header nav > div {
 }
 
 /* ===========================
-   Utilities (kept)
+   Utilities
    =========================== */
 .flex {
   display: flex;
@@ -185,7 +225,7 @@ header nav > div {
   border-radius: 0.5rem;
 }
 .bg-white {
-  background: #fff;
+  background: var(--bg-secondary);
 }
 .text-white {
   color: #fff;
@@ -266,7 +306,7 @@ header mat-icon {
   left: 0;
   margin-top: 0.25rem;
   width: 14rem;
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 0.5rem;
   box-shadow: 0 10px 20px rgba(2, 6, 23, 0.15);
   opacity: 0;
@@ -291,15 +331,15 @@ header mat-icon {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--gray-700);
+  color: var(--text-secondary);
   padding: 0.5rem 1rem;
   text-decoration: none;
   border-radius: 0.375rem;
   transition: background 0.12s ease, color 0.12s ease;
 }
 .group > div.absolute a:hover {
-  background: #f8fafc;
-  color: var(--gray-900);
+  background: var(--ocean-50);
+  color: var(--ocean-600);
 }
 
 .group.right > div.absolute {
@@ -326,13 +366,14 @@ header mat-icon {
    Footer
    =========================== */
 footer {
-  background: var(--gray-900);
-  color: #fff;
+  background: var(--footer-bg);
+  color: var(--text-primary);
   padding: 3rem 1rem;
   font-size: 14px;
   line-height: 1.6;
   width: 100%;
   margin-top: auto;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 footer .max-w-7xl {
@@ -379,11 +420,11 @@ footer .max-w-7xl {
 
 footer h3,
 footer h4 {
-  color: #fff;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
 footer p {
-  color: var(--gray-400-alt);
+  color: var(--text-secondary);
   margin: 0 0 1rem 0;
 }
 footer a {
@@ -392,7 +433,7 @@ footer a {
   transition: color 0.15s ease, transform 0.12s ease;
 }
 footer a:hover {
-  color: #fff;
+  color: var(--ocean-400);
   transform: translateX(2px);
 }
 
@@ -403,7 +444,7 @@ footer .flex a {
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
   color: #fff;
   transition: background 0.2s ease;
 }
@@ -445,17 +486,20 @@ footer .flex a:hover {
 }
 
 .tool-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   border-radius: 0.5rem;
   cursor: pointer;
 }
 .tool-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 30px rgba(2, 6, 23, 0.12);
+  border-color: var(--ocean-600);
 }
 
 .upload-area {
-  border: 2px dashed #bdbdbd;
+  border: 2px dashed var(--border-color);
   border-radius: 12px;
   padding: 48px 24px;
   text-align: center;
@@ -463,11 +507,11 @@ footer .flex a:hover {
 }
 .upload-area:hover {
   border-color: var(--ocean-600);
-  background: #f7fbff;
+  background: var(--ocean-50);
 }
 .upload-area.dragover {
   border-color: var(--ocean-600);
-  background: var(--ocean-50);
+  background: var(--ocean-100);
 }
 
 .loading-spinner {
@@ -475,7 +519,7 @@ footer .flex a:hover {
   border-radius: 50%;
   width: 32px;
   height: 32px;
-  border: 3px solid #e0e0e0;
+  border: 3px solid var(--border-color);
   border-top-color: var(--ocean-600);
 }
 @keyframes spin {

@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    ThemeToggleComponent,
   ],
   template: `
    <header class="bg-gradient-to-r from-ocean-600 to-ocean-700 shadow-lg sticky top-0 z-50">
@@ -94,10 +96,14 @@ import { MatIconModule } from '@angular/material/icon';
             </div>
           </div>
         </ng-container>
+        
+        <!-- Theme Toggle -->
+        <app-theme-toggle></app-theme-toggle>
       </div>
 
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
+        <app-theme-toggle></app-theme-toggle>
         <button mat-icon-button class="text-white" [matMenuTriggerFor]="mobileMenu">
           <mat-icon>menu</mat-icon>
         </button>
@@ -106,7 +112,7 @@ import { MatIconModule } from '@angular/material/icon';
   </nav>
 
   <!-- Mobile Menu -->
-  <mat-menu #mobileMenu="matMenu" class="w-64" style="background-color: red;">
+  <mat-menu #mobileMenu="matMenu" class="w-64">
     <div class="py-2 divide-y divide-gray-200 pt-100" >
       <ng-container *ngFor="let menu of menus">
         <div>
@@ -129,21 +135,56 @@ import { MatIconModule } from '@angular/material/icon';
 
   `,
   styles: [
-    `
-    .pt-100{
-      padding-top:50px;
-      background-color: #ffffff;
-      padding-left:10px;
-      padding-right:10px;
-      box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
-    }
-    .menuitem{
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-    .menuitem:hover {
-      box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
-      transform: translateY(-4px);
-    }
+    `/* ===========================
+    Mobile Menu Padding & Background
+    =========================== */
+ .pt-100 {
+   padding-top: 50px;
+   padding-left: 10px;
+   padding-right: 10px;
+   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+   background-color: var(--bg-card, #ffffff); /* Light mode default */
+   transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+ }
+ 
+ /* Dark mode support for menu container */
+ [data-theme='dark'] .pt-100 {
+   background-color: var(--bg-card, #1e293b);
+   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+ }
+ 
+ /* ===========================
+    Menu Item
+    =========================== */
+ .menuitem {
+   transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+   color: var(--text-primary, #111827); /* Light mode text */
+   border-radius: 4px;
+   display: flex;
+   align-items: center;
+   padding: 0.5rem 1rem;
+ }
+ 
+ /* Dark mode default text color */
+ [data-theme='dark'] .menuitem {
+   color: var(--text-primary, #f8fafc); /* Dark mode text */
+ }
+ 
+ /* Light mode hover */
+ .menuitem:hover {
+   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+   transform: translateY(-2px);
+   background-color: #f3f4f6; /* Light gray hover */
+   color: #111827;
+ }
+ 
+ /* Dark mode hover */
+ [data-theme='dark'] .menuitem:hover {
+   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5);
+   transform: translateY(-2px);
+   background-color: #FFFFFF; /* White hover */
+   color: #f8fafc;
+ } 
 `,
   ],
 })
