@@ -20,7 +20,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
     ThemeToggleComponent,
   ],
   template: `
-   <header class="bg-gradient-to-r from-ocean-600 to-ocean-700 shadow-lg sticky top-0 z-50">
+  <header class="bg-gradient-to-r from-ocean-600 to-ocean-700 shadow-lg fixed top-0 left-0 right-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       

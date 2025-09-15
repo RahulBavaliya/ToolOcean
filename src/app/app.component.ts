@@ -34,6 +34,11 @@ import { ThemeService } from './core/services/theme.service';
       <app-footer></app-footer>
     </div>
   `,
+  styles:`
+    main {
+      padding-top: 64px; /* h-16 = 64px */
+    }
+  `
 })
 export class AppComponent implements OnInit {
   constructor(

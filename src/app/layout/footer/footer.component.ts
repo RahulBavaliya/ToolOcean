@@ -120,7 +120,7 @@ import { MatDividerModule } from '@angular/material/divider';
               © {{ currentYear }} Tool Ocean. All rights reserved.
             </p>
             
-            <div class="flex space-x-6">
+            <div class="footer-links flex justify-center space-x-6">
               <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
               <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
               <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Contact</a>
@@ -130,6 +130,27 @@ import { MatDividerModule } from '@angular/material/divider';
       </div>
     </footer>
   `,
+  styles:`
+    /* Override for legal/footer text links */
+    .footer-links a {
+      display: inline;       /* reset from inline-flex */
+      width: auto;           /* remove fixed width */
+      height: auto;          /* remove fixed height */
+      background: transparent !important; /* remove circle background */
+      color: var(--gray-400);
+      padding: 0;
+      margin: 0 1rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+    }
+    .footer-links a:hover {
+      color: var(--ocean-400);
+      background: transparent !important;
+      transform: none; /* prevent unwanted shift */
+    }
+  `
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
