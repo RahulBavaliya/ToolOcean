@@ -23,17 +23,20 @@ import { SeoService } from '../../../core/services/seo.service';
     MatSnackBarModule
   ],
   template: `
-    <div class="min-h-screen bg-gradient-to-b from-teal-50 to-white py-8">
+    <div class="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-teal-900 dark:to-cyan-900 py-8 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <mat-icon class="text-white text-3xl">text_format</mat-icon>
+        <div class="text-center mb-12">
+          <div class="relative">
+            <div class="w-20 h-20 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <mat-icon class="text-white text-4xl">text_format</mat-icon>
+              <div class="absolute -inset-1 bg-gradient-to-r from-teal-500 to-blue-500 rounded-3xl blur opacity-30 animate-pulse"></div>
+            </div>
           </div>
-          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 dark:from-teal-400 dark:via-cyan-400 dark:to-blue-400 bg-clip-text text-transparent mb-6">
             Case Converter
           </h1>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Convert text between uppercase, lowercase, title case, sentence case, and more. 
             Perfect for formatting text for different purposes.
           </p>

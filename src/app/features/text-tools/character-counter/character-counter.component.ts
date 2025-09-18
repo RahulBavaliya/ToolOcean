@@ -32,58 +32,63 @@ interface TextStats {
     MatIconModule
   ],
   template: `
-    <div class="min-h-screen bg-gradient-to-b from-teal-50 to-white py-8">
+    <div class="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-teal-900 dark:to-cyan-900 py-8 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <mat-icon class="text-white text-3xl">text_fields</mat-icon>
+        <div class="text-center mb-12">
+          <div class="relative">
+            <div class="w-20 h-20 bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <mat-icon class="text-white text-4xl">text_fields</mat-icon>
+              <div class="absolute -inset-1 bg-gradient-to-r from-teal-500 to-blue-500 rounded-3xl blur opacity-30 animate-pulse"></div>
+            </div>
           </div>
-          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 dark:from-teal-400 dark:via-cyan-400 dark:to-blue-400 bg-clip-text text-transparent mb-6">
             Character Counter & Text Analyzer
           </h1>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Count characters, words, sentences, and analyze your text in real-time. 
             Perfect for social media posts, essays, and content creation.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           <!-- Text Input -->
           <div class="lg:col-span-2">
-            <mat-card class="p-6 h-full">
-              <mat-card-header class="pb-4">
-                <mat-card-title class="flex items-center">
-                  <mat-icon class="mr-2 text-teal-500">edit</mat-icon>
+            <mat-card class="p-8 h-full rounded-2xl shadow-2xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:shadow-3xl transition-all duration-300">
+              <mat-card-header class="pb-6">
+                <mat-card-title class="flex items-center text-2xl font-bold">
+                  <div class="w-10 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mr-3">
+                    <mat-icon class="text-white">edit</mat-icon>
+                  </div>
                   Text Input
                 </mat-card-title>
-                <mat-card-subtitle>
+                <mat-card-subtitle class="text-gray-600 dark:text-gray-300 mt-2">
                   Type or paste your text here
                 </mat-card-subtitle>
               </mat-card-header>
 
-              <mat-form-field class="w-full">
+              <mat-form-field class="w-full" appearance="outline">
                 <textarea
                   matInput
                   [(ngModel)]="textInput"
                   placeholder="Start typing or paste your text here..."
-                  class="form-textarea min-h-[400px]"
+                  class="min-h-[400px] resize-none"
                   (input)="analyzeText()"
                   aria-label="Text input for analysis"
                 ></textarea>
               </mat-form-field>
 
-              <div class="flex flex-wrap gap-3 mt-4">
-                <button mat-stroked-button (click)="clearText()">
-                  <mat-icon class="mr-1">clear</mat-icon>
+              <div class="flex flex-wrap gap-3 mt-6">
+                <button mat-stroked-button class="rounded-xl px-6 py-3" (click)="clearText()">
+                  <mat-icon class="mr-2">clear</mat-icon>
                   Clear Text
                 </button>
-                <button mat-stroked-button (click)="copyText()">
-                  <mat-icon class="mr-1">content_copy</mat-icon>
+                <button mat-stroked-button class="rounded-xl px-6 py-3" (click)="copyText()">
+                  <mat-icon class="mr-2">content_copy</mat-icon>
                   Copy Text
                 </button>
-                <button mat-stroked-button (click)="uploadFile()">
-                  <mat-icon class="mr-1">upload_file</mat-icon>
+                <button mat-stroked-button class="rounded-xl px-6 py-3" (click)="uploadFile()">
+                  <mat-icon class="mr-2">upload_file</mat-icon>
                   Upload File
                 </button>
               </div>
@@ -100,85 +105,87 @@ interface TextStats {
 
           <!-- Statistics Panel -->
           <div class="lg:col-span-1">
-            <mat-card class="p-6 sticky top-8">
-              <mat-card-header class="pb-4">
-                <mat-card-title class="flex items-center">
-                  <mat-icon class="mr-2 text-teal-500">analytics</mat-icon>
+            <mat-card class="p-8 sticky top-8 rounded-2xl shadow-2xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+              <mat-card-header class="pb-6">
+                <mat-card-title class="flex items-center text-2xl font-bold">
+                  <div class="w-10 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mr-3">
+                    <mat-icon class="text-white">analytics</mat-icon>
+                  </div>
                   Text Statistics
                 </mat-card-title>
               </mat-card-header>
 
-              <div class="space-y-4">
+              <div class="space-y-6">
                 <!-- Primary Stats -->
                 <div class="grid grid-cols-2 gap-4">
-                  <div class="bg-gradient-to-r from-teal-50 to-teal-100 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-teal-600">{{ stats.characters }}</div>
-                    <div class="text-sm text-teal-700">Characters</div>
+                  <div class="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/30 dark:to-cyan-900/30 rounded-xl p-4 text-center border border-teal-200 dark:border-teal-700">
+                    <div class="text-3xl font-bold text-teal-600 dark:text-teal-400">{{ stats.characters }}</div>
+                    <div class="text-sm text-teal-700 dark:text-teal-300 font-medium">Characters</div>
                   </div>
                   
-                  <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-blue-600">{{ stats.words }}</div>
-                    <div class="text-sm text-blue-700">Words</div>
+                  <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 rounded-xl p-4 text-center border border-blue-200 dark:border-blue-700">
+                    <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{{ stats.words }}</div>
+                    <div class="text-sm text-blue-700 dark:text-blue-300 font-medium">Words</div>
                   </div>
                 </div>
 
                 <!-- Detailed Stats -->
-                <div class="space-y-3">
-                  <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span class="text-gray-600">Characters (no spaces)</span>
-                    <span class="font-semibold">{{ stats.charactersNoSpaces }}</span>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center py-3 px-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <span class="text-gray-600 dark:text-gray-300 font-medium">Characters (no spaces)</span>
+                    <span class="font-bold text-lg text-gray-800 dark:text-gray-200">{{ stats.charactersNoSpaces }}</span>
                   </div>
                   
-                  <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span class="text-gray-600">Sentences</span>
-                    <span class="font-semibold">{{ stats.sentences }}</span>
+                  <div class="flex justify-between items-center py-3 px-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <span class="text-gray-600 dark:text-gray-300 font-medium">Sentences</span>
+                    <span class="font-bold text-lg text-gray-800 dark:text-gray-200">{{ stats.sentences }}</span>
                   </div>
                   
-                  <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span class="text-gray-600">Paragraphs</span>
-                    <span class="font-semibold">{{ stats.paragraphs }}</span>
+                  <div class="flex justify-between items-center py-3 px-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <span class="text-gray-600 dark:text-gray-300 font-medium">Paragraphs</span>
+                    <span class="font-bold text-lg text-gray-800 dark:text-gray-200">{{ stats.paragraphs }}</span>
                   </div>
                   
-                  <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span class="text-gray-600">Lines</span>
-                    <span class="font-semibold">{{ stats.lines }}</span>
+                  <div class="flex justify-between items-center py-3 px-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <span class="text-gray-600 dark:text-gray-300 font-medium">Lines</span>
+                    <span class="font-bold text-lg text-gray-800 dark:text-gray-200">{{ stats.lines }}</span>
                   </div>
                 </div>
 
                 <!-- Reading Time -->
-                <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4">
-                  <h4 class="font-semibold text-purple-800 mb-2">Reading Time</h4>
-                  <div class="space-y-1">
-                    <div class="flex justify-between text-sm">
-                      <span class="text-purple-700">Reading:</span>
-                      <span class="font-medium">{{ formatTime(stats.readingTime) }}</span>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl p-4 border border-purple-200 dark:border-purple-700">
+                  <h4 class="font-bold text-purple-800 dark:text-purple-300 mb-3">Reading Time</h4>
+                  <div class="space-y-2">
+                    <div class="flex justify-between">
+                      <span class="text-purple-700 dark:text-purple-300 font-medium">Reading:</span>
+                      <span class="font-bold text-purple-800 dark:text-purple-200">{{ formatTime(stats.readingTime) }}</span>
                     </div>
-                    <div class="flex justify-between text-sm">
-                      <span class="text-purple-700">Speaking:</span>
-                      <span class="font-medium">{{ formatTime(stats.speakingTime) }}</span>
+                    <div class="flex justify-between">
+                      <span class="text-purple-700 dark:text-purple-300 font-medium">Speaking:</span>
+                      <span class="font-bold text-purple-800 dark:text-purple-200">{{ formatTime(stats.speakingTime) }}</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Social Media Limits -->
-                <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4">
-                  <h4 class="font-semibold text-orange-800 mb-2">Social Media</h4>
-                  <div class="space-y-2">
-                    <div class="flex justify-between text-sm">
-                      <span class="text-orange-700">Twitter:</span>
-                      <span class="font-medium" [class.text-red-600]="stats.characters > 280">
+                <div class="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 rounded-xl p-4 border border-orange-200 dark:border-orange-700">
+                  <h4 class="font-bold text-orange-800 dark:text-orange-300 mb-3">Social Media</h4>
+                  <div class="space-y-3">
+                    <div class="flex justify-between">
+                      <span class="text-orange-700 dark:text-orange-300 font-medium">Twitter:</span>
+                      <span class="font-bold" [class.text-red-600]="stats.characters > 280" [class.text-orange-800]="stats.characters <= 280" [class.dark:text-red-400]="stats.characters > 280" [class.dark:text-orange-200]="stats.characters <= 280">
                         {{ stats.characters }}/280
                       </span>
                     </div>
-                    <div class="flex justify-between text-sm">
-                      <span class="text-orange-700">Facebook:</span>
-                      <span class="font-medium" [class.text-red-600]="stats.characters > 63206">
+                    <div class="flex justify-between">
+                      <span class="text-orange-700 dark:text-orange-300 font-medium">Facebook:</span>
+                      <span class="font-bold" [class.text-red-600]="stats.characters > 63206" [class.text-orange-800]="stats.characters <= 63206" [class.dark:text-red-400]="stats.characters > 63206" [class.dark:text-orange-200]="stats.characters <= 63206">
                         {{ stats.characters }}/63,206
                       </span>
                     </div>
-                    <div class="flex justify-between text-sm">
-                      <span class="text-orange-700">Instagram:</span>
-                      <span class="font-medium" [class.text-red-600]="stats.characters > 2200">
+                    <div class="flex justify-between">
+                      <span class="text-orange-700 dark:text-orange-300 font-medium">Instagram:</span>
+                      <span class="font-bold" [class.text-red-600]="stats.characters > 2200" [class.text-orange-800]="stats.characters <= 2200" [class.dark:text-red-400]="stats.characters > 2200" [class.dark:text-orange-200]="stats.characters <= 2200">
                         {{ stats.characters }}/2,200
                       </span>
                     </div>
@@ -190,45 +197,47 @@ interface TextStats {
         </div>
 
         <!-- Features Section -->
-        <mat-card class="mt-8 p-6">
-          <mat-card-header class="pb-4">
-            <mat-card-title class="flex items-center">
-              <mat-icon class="mr-2 text-blue-500">featured_play_list</mat-icon>
+        <mat-card class="p-8 rounded-2xl shadow-2xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+          <mat-card-header class="pb-6">
+            <mat-card-title class="flex items-center text-2xl font-bold">
+              <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center mr-3">
+                <mat-icon class="text-white">featured_play_list</mat-icon>
+              </div>
               Features & Use Cases
             </mat-card-title>
           </mat-card-header>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="text-center">
-              <div class="w-12 h-12 bg-teal-100 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                <mat-icon class="text-teal-600">social_media</mat-icon>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center group">
+              <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <mat-icon class="text-white text-2xl">share</mat-icon>
               </div>
-              <h3 class="font-semibold mb-2">Social Media Posts</h3>
-              <p class="text-sm text-gray-600">Check character limits for Twitter, Facebook, Instagram</p>
+              <h3 class="font-bold text-lg mb-3">Social Media Posts</h3>
+              <p class="text-gray-600 dark:text-gray-300">Check character limits for Twitter, Facebook, Instagram</p>
             </div>
             
-            <div class="text-center">
-              <div class="w-12 h-12 bg-blue-100 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                <mat-icon class="text-blue-600">article</mat-icon>
+            <div class="text-center group">
+              <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <mat-icon class="text-white text-2xl">article</mat-icon>
               </div>
-              <h3 class="font-semibold mb-2">Content Writing</h3>
-              <p class="text-sm text-gray-600">Analyze blog posts, articles, and essays</p>
+              <h3 class="font-bold text-lg mb-3">Content Writing</h3>
+              <p class="text-gray-600 dark:text-gray-300">Analyze blog posts, articles, and essays</p>
             </div>
             
-            <div class="text-center">
-              <div class="w-12 h-12 bg-purple-100 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                <mat-icon class="text-purple-600">schedule</mat-icon>
+            <div class="text-center group">
+              <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <mat-icon class="text-white text-2xl">schedule</mat-icon>
               </div>
-              <h3 class="font-semibold mb-2">Reading Time</h3>
-              <p class="text-sm text-gray-600">Estimate reading and speaking duration</p>
+              <h3 class="font-bold text-lg mb-3">Reading Time</h3>
+              <p class="text-gray-600 dark:text-gray-300">Estimate reading and speaking duration</p>
             </div>
             
-            <div class="text-center">
-              <div class="w-12 h-12 bg-green-100 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                <mat-icon class="text-green-600">analytics</mat-icon>
+            <div class="text-center group">
+              <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <mat-icon class="text-white text-2xl">analytics</mat-icon>
               </div>
-              <h3 class="font-semibold mb-2">Text Analysis</h3>
-              <p class="text-sm text-gray-600">Detailed statistics and insights</p>
+              <h3 class="font-bold text-lg mb-3">Text Analysis</h3>
+              <p class="text-gray-600 dark:text-gray-300">Detailed statistics and insights</p>
             </div>
           </div>
         </mat-card>
