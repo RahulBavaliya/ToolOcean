@@ -27,12 +27,12 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build -- --project demo --configuration production --base-href=/ToolOcean/
+        run: npm run build:prod
 
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/demo
+          path: dist/ToolOcean
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
