@@ -1,4 +1,4 @@
-name: Build and deploy Angular app to GitHub Pages
+name: Build and Deploy Angular App to GitHub Pages
 
 on:
   push:
@@ -13,6 +13,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,10 +29,10 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --project demo --configuration production --base-href=/ToolOcean/
 
-      - name: Upload build output
+      - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/demo
+          path: dist/demo
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
