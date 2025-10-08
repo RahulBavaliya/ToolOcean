@@ -29,6 +29,11 @@ jobs:
       - name: Build Angular app
         run: npm run build:prod
 
+      - name: Prepare for GitHub Pages
+        run: |
+          cp dist/ToolOcean/index.html dist/ToolOcean/404.html
+          touch dist/ToolOcean/.nojekyll
+
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
