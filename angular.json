@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "ToolOcean": {
       "architect": {
         "build": {
           "builder": "@angular/build:application",
