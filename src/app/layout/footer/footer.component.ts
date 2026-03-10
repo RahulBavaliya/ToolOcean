@@ -110,6 +110,7 @@ import { MatDividerModule } from '@angular/material/divider';
               <li><a routerLink="/misc/qr-generator" class="text-gray-400 hover:text-white transition-colors text-sm">QR Generator</a></li>
               <li><a routerLink="/misc/url-shortener" class="text-gray-400 hover:text-white transition-colors text-sm">URL Shortener</a></li>
               <li><a routerLink="/calculator/measurement-converter" class="text-gray-400 hover:text-white transition-colors text-sm">Unit Converter</a></li>
+              <li><a routerLink="/misc/encrypt-decrypt" class="text-gray-400 hover:text-white transition-colors text-sm">Encrypt & Decrypt</a></li>
             </ul>
           </div>
         </div>
