@@ -278,6 +278,7 @@ export class HeaderComponent {
           icon: 'scanner',
         },
         { label: 'URL Shortener', link: '/misc/url-shortener', icon: 'link' },
+        { label: 'Encrypt & Decrypt', link: '/misc/encrypt-decrypt', icon: 'lock' },
       ],
     },
   ];
