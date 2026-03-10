@@ -242,7 +242,20 @@ export const routes: Routes = [
             'Free online URL shortener. Create short links, track clicks, and manage your shortened URLs.',
           canonical: 'https://tool-ocean.vercel.app/misc/url-shortener'
         }
-      }
+      },
+      {
+        path: 'encrypt-decrypt',
+        loadComponent: () =>
+          import(
+            './features/misc-tools/encrypt-decrypt/encrypt-decrypt.component'
+          ).then((m) => m.EncryptDecryptComponent),
+        data: {
+          title: 'Encrypt & Decrypt - AES-256-CBC Encryption | Tool Ocean',
+          description:
+            'Free online AES-256-CBC encryption and decryption tool. Encrypt and decrypt text using the Web Crypto API. All encryption happens in your browser.',
+          canonical: 'https://tool-ocean.vercel.app/misc/encrypt-decrypt',
+        },
+      },
     ]
   },
   {
